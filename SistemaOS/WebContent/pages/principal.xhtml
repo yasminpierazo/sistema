@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/modeloSistema.xhtml">
+	
+
+	<ui:define name="conteudo">
+		<f:event listener="#{MBSistema.carregarListagem}" type="preRenderView" />
+		
+		<h:form id="frmSistList">
+			<p:dataTable id="tblSistList" widgetVar="tabelaSistList"
+						value="#{MBSistema.itens}" var="item"
+						emptyMessage="Nenhum registro encontrado." 
+						paginator="true" rows="10"
+						filteredValue="#{MBSistema.itensFiltrados}">
+			<f:facet name="header">
+				<h:outputText value="Serviços - Listagem"/>
+			</f:facet>
+			
+			<p:column style="width:16px">
+            <p:rowToggler />
+			</p:column>
+			<p:column headerText="Nº" filterBy="#{item.codigo}" sortBy="#{item.codigo}" >
+				<h:outputText value="#{item.codigo}"/>
+			</p:column>
+			
+			<p:column headerText="Equip." filterBy="#{item.equip}" sortBy="#{item.equip}">
+				<h:outputText value="#{item.equip}"/>
+			</p:column>
+			
+				<p:column headerText="Marca" filterBy="#{item.marca}" sortBy="#{item.marca}">
+					<h:outputText value="#{item.marca}"/>
+				</p:column>
+				
+				<p:column headerText="Modelo" filterBy="#{item.modelo}" sortBy="#{item.modelo}" >
+					<h:outputText value="#{item.modelo}"/>
+				</p:column>
+				
+		
+				<p:column headerText="Chegada" >
+					<h:outputText value="#{item.datachegada}"/>
+				</p:column>
+				
+				<p:column headerText="Saída"  >
+					<h:outputText value="#{item.datasaida}"/>
+				</p:column>
+			
+				<p:column headerText="Orçamento" filterBy="#{item.preco}" sortBy="#{item.preco}">
+					<h:outputText value="#{item.preco}"/>
+				</p:column>
+				
+				
+				
+			<p:column headerText="Status" filterBy="#{item.status}" filterMatchMode="equals">
+				<f:facet name="filter">
+                <p:selectOneButton onchange="PF('tabelaSistList').filter()">
+                    <f:converter converterId="javax.faces.Boolean" />
+                    <f:selectItem itemLabel="Todos" itemValue="" />
+                    <f:selectItem itemLabel="Pendente" itemValue="true" />
+                    <f:selectItem itemLabel="Finalizado" itemValue="false" />
+                </p:selectOneButton>
+            </f:facet>
+            <h:outputText value="#{item.status ? 'Pendente': 'Finalizado'}" />
+			</p:column>
+			
+			
+			<p:column headerText="Opções">
+					<p:commandButton icon="ui-icon-trash" oncomplete="PF('dlgSistExcluir').show(); "
+						update=":frmSistExcluir:pnlSistExcluir">
+						
+						<f:setPropertyActionListener value="#{item}" target="#{MBSistema.sistema}"/>
+						
+						</p:commandButton>
+					
+					<p:commandButton icon="ui-icon-pencil" oncomplete="PF('dlgSistEditar').show(); "
+						update=":frmSistEditar:pnlSistEditar">
+						
+						<f:setPropertyActionListener value="#{item}" target="#{MBSistema.sistema}"/>
+						
+						</p:commandButton>
+						
+					<p:commandButton icon="ui-icon-check" oncomplete="PF('dlgSistFinal').show();"
+									update=":frmSistFinal:pnlSistFinal">
+					
+						<f:setPropertyActionListener value="#{item}" target="#{MBSistema.sistema}"/>
+					
+					</p:commandButton>
+						
+					 <p:commandButton icon="ui-icon-print"
+					oncomplete="PF('dlgSistImpr').show();" update=":frmSistImpr:pnlSistImpr" >
+					
+						<f:setPropertyActionListener value="#{item}" target="#{MBSistema.sistema}" />
+					
+					</p:commandButton>
+					</p:column>
+					
+			<p:rowExpansion>		
+					<h:panelGrid  columns="2" style="width: 450px">
+					<h:outputText value="Cliente: " style="font-weight:bold"/>					
+					<p:outputLabel value="#{item.cliente}"/>	
+					
+					
+					
+					<h:outputText value="Telefone: " style="font-weight:bold"/>
+					<h:outputText value="#{item.telefone}"/>
+					
+					
+					
+					<h:outputText value="Endereço: " style="font-weight:bold"/>
+					<h:outputText value="#{item.end}"/>
+				
+					<h:outputText value="Defeito: " style="font-weight:bold"/>
+					<p:inputTextarea value="#{item.defeito}" readonly="true" autoResize="false" rows="5" cols="25"/>
+					
+					<h:outputText value="Serviço Executado: " style="font-weight:bold"/>
+					<p:inputTextarea value="#{item.servicoex}" readonly="true" autoResize="false" rows="5" cols="25"/>
+					</h:panelGrid>
+					
+					
+					
+			</p:rowExpansion>
+			
+			
+			<f:facet name="footer">
+				<p:commandButton value="Novo" oncomplete="PF('dlgSistNovo').show();"
+								 actionListener="#{MBSistema.prepararNovo}"
+								 update=":frmSistNovo:pnlSistNovo :msgGlobal"
+				/>
+			
+			</f:facet>
+			
+			</p:dataTable>
+
+		</h:form>
+		
+		<p:dialog widgetVar="dlgSistNovo" draggable="false" resizable="true"
+				  header="Serviço - Novo" responsive="true" width="450px" height="400px">
+			<h:form id="frmSistNovo">
+				<h:panelGrid columns="2" id="pnlSistNovo" cellpadding="5">
+								
+					<p:outputLabel value="Cliente: *" style="font-weight:bold"/>
+					<p:inputText value="#{MBSistema.sistema.cliente}" maxlenght="50" size="30"
+								required="true" requiredMessage="O campo cliente é obrigatório."/>
+					
+		
+					<p:outputLabel for ="phone" value="Telefone do Cliente:" style="font-weight:bold"/>
+					<p:inputMask id="phone" value="#{MBSistema.sistema.telefone }" mask="(99) 9999-9999" size="15"
+								required="true" requiredMessage="O campo telefone é obrigatório."/>
+					
+					<p:outputLabel value="Endereço: *" style="font-weight:bold"/>
+					<p:inputText value="#{MBSistema.sistema.end}" maxlenght="50" size="30"
+								required="true" requiredMessage="O campo endereço é obrigatório."/>
+					
+					<p:outputLabel value="Equipamento: *" style="font-weight:bold"/>
+					<p:inputText value="#{MBSistema.sistema.equip}" maxlenght="50" size="30"
+								required="true" requiredMessage="O campo equipamento é obrigatório."/>
+								
+					<p:outputLabel value="Marca: *" style="font-weight:bold"/>
+					<p:inputText value="#{MBSistema.sistema.marca}" maxlenght="50" size="30"
+								required="true" requiredMessage="O campo marca é obrigatório."/>
+								
+					<p:outputLabel value="Modelo: *" style="font-weight:bold"/>
+					<p:inputText value="#{MBSistema.sistema.modelo}" maxlenght="50" size="30"
+								required="true" requiredMessage="O campo modelo é obrigatório."/>
+								
+					<p:outputLabel value="Defeito: *" style="font-weight:bold"/>
+					<p:inputTextarea value="#{MBSistema.sistema.defeito}" rows="6" cols="33"  required="true" 
+					requiredMessage="O campo defeito é obrigatório."/>
+					
+					<p:outputLabel value="Data de Chegada: *" style="font-weight:bold"/>
+					<p:inputMask value="#{MBSistema.sistema.datachegada}" mask="99/99/9999" size="13"
+								required="true" requiredMessage="O campo data de chegada é obrigatório."/>
+					
+					<p:outputLabel value="Orçamento: " style="font-weight:bold"/>
+					<p:inputText value="#{MBSistema.sistema.preco}" size="9"/>
+					
+					
+				</h:panelGrid>
+									
+				<h:panelGrid columns="2">
+					<p:commandButton value="Gravar" actionListener="#{MBSistema.novo}"
+									 update=":msgGlobal :frmSistList:tblSistList"
+									 oncomplete="verificar(xhr, status, args, 'dlgSistNovo', 'tabelaSistList')"/>
+					<p:commandButton value="Cancelar" oncomplete="PF('dlgSistNovo').hide();"
+										process="@this">
+										
+										<p:resetInput target="pnlSistNovo"/>
+										
+					</p:commandButton>
+				
+				</h:panelGrid>				
+				
+				
+			</h:form>
+		</p:dialog>
+		
+		<p:dialog widgetVar="dlgSistExcluir" draggable="false" resizable="false" width="450px" height="400px"
+				  header="Serviço - Excluir">
+			<h:form id="frmSistExcluir">
+				<h:panelGrid  columns="2" id="pnlSistExcluir" cellpadding="5" >
+					<p:outputLabel value="Nº: " style="font-weight:bold"/>
+					<p:inputText value="#{MBSistema.sistema.codigo}" readonly="true" size="3" />
+									
+					<p:outputLabel value="Cliente:" style="font-weight:bold"/>
+					<p:inputText value="#{MBSistema.sistema.cliente}" readonly="true"/>	
+					
+					<p:outputLabel value="Telefone do Cliente:" style="font-weight:bold"/>
+					<p:inputText value="#{MBSistema.sistema.telefone}"  readonly="true" size="15"/>
+						
+					<p:outputLabel value="Endereço:" style="font-weight:bold"/>
+					<p:inputText value="#{MBSistema.sistema.end}" readonly="true"/>					
+					
+					<p:outputLabel value="Equipamento:" style="font-weight:bold"/>
+					<p:inputText value="#{MBSistema.sistema.equip}" readonly="true"/>										
+					
+					<p:outputLabel value="Marca:" style="font-weight:bold"/>
+					<p:inputText value="#{MBSistema.sistema.marca}" readonly="true"/>						
+					
+					<p:outputLabel value="Modelo:" style="font-weight:bold"/>
+					<p:inputText value="#{MBSistema.sistema.modelo}" readonly="true"/>					
+						
+					<p:outputLabel value="Defeito:" style="font-weight:bold"/>
+					<p:inputTextarea value="#{MBSistema.sistema.defeito}" readonly="true" autoResize="true" cols="25"/>			
+					
+					<p:outputLabel value="Data de Chegada:" style="font-weight:bold"/>
+					<p:inputText value="#{MBSistema.sistema.datachegada}" readonly="true" size="10"/>					
+					
+					<p:outputLabel value="Data de Saída:" style="font-weight:bold"/>
+					<p:inputText value="#{MBSistema.sistema.datasaida}" readonly="true" size="10"/>
+										
+					<p:outputLabel value="Orçamento:" style="font-weight:bold"/>
+					<p:inputText value="#{MBSistema.sistema.preco}" readonly="true" size="6"/>
+					
+					<p:outputLabel value="Serviço Executado:" style="font-weight:bold"/>
+					<p:inputTextarea value="#{MBSistema.sistema.servicoex}" readonly="true" autoResize="true" cols="25"/>			
+					
+					
+					<p:outputLabel value="Status:" style="font-weight:bold"/>
+					<p:inputText value="#{MBSistema.sistema.status ? 'Pendente': 'Finalizado'}" readonly="true" size="10"/>
+					
+				</h:panelGrid>
+				
+									
+				<h:panelGrid columns="2">
+					<p:commandButton value="Excluir" actionListener="#{MBSistema.excluir}"
+									 update=":msgGlobal :frmSistList:tblSistList"
+									 oncomplete="verificar(xhr, status, args, 'dlgSistExcluir', 'tabelaSistList')"/>
+					<p:commandButton value="Cancelar" process="@this"
+					 				 oncomplete="PF('dlgSistExcluir').hide(); PF('tabelaSistList').clearFilters();"/>
+				
+				</h:panelGrid>				
+				</h:form>
+				</p:dialog>
+		
+						<p:dialog widgetVar="dlgSistEditar" draggable="false" resizable="false"
+				  header="Serviço - Editar" width="450px" height="400px">
+			<h:form id="frmSistEditar">
+				<h:panelGrid columns="2" id="pnlSistEditar">
+					<p:outputLabel value="Nº: " style="font-weight:bold"/>
+					<p:inputText value="#{MBSistema.sistema.codigo}" readonly="true" size="3"/>
+					
+					<p:outputLabel value="Cliente: *" style="font-weight:bold"/>
+					<p:inputText value="#{MBSistema.sistema.cliente}" maxlenght="60" size="40"
+								required="true" requiredMessage="O campo cliente é obrigatório."/>
+					
+					<p:outputLabel value="Telefone do Cliente: *" style="font-weight:bold"/>
+					<p:inputMask value="#{MBSistema.sistema.telefone}" mask="(99) 9999-9999" size="15"
+								required="true" requiredMessage="O campo telefone é obrigatório."/>
+					
+					<p:outputLabel value="Endereço: *" style="font-weight:bold"/>
+					<p:inputMask value="#{MBSistema.sistema.end}" maxlenght="150" size="40"
+								required="true" requiredMessage="O campo endereço é obrigatório."/>
+								
+					<p:outputLabel value="Equipamento: *" style="font-weight:bold"/>
+					<p:inputText value="#{MBSistema.sistema.equip}" maxlenght="50" size="20"
+								required="true" requiredMessage="O campo equipamento é obrigatório."/>
+					
+					<p:outputLabel value="Marca: *" style="font-weight:bold"/>
+					<p:inputText value="#{MBSistema.sistema.marca}" maxlenght="50" size="20"
+								required="true" requiredMessage="O campo marca é obrigatório."/>
+					
+					<p:outputLabel value="Modelo: *" style="font-weight:bold"/>
+					<p:inputText value="#{MBSistema.sistema.modelo}" maxlenght="50" size="20"
+								required="true" requiredMessage="O campo modelo é obrigatório."/>
+					
+					<p:outputLabel value="Defeito: *" style="font-weight:bold"/>
+					<p:inputTextarea value="#{MBSistema.sistema.defeito}" rows="6" cols="33" required="true" 
+					requiredMessage="O campo defeito é obrigatório."/>
+					
+					
+					<p:outputLabel value="Data de Chegada: *" style="font-weight:bold"/>
+					<p:inputMask value="#{MBSistema.sistema.datachegada}" mask="99/99/9999" size="10"
+								required="true" requiredMessage="O campo data é obrigatório."/>					
+					
+					<p:outputLabel value="Data de Saída:" style="font-weight:bold"/>
+					<p:inputMask value="#{MBSistema.sistema.datasaida}" mask="99/99/9999" size="10"/>					
+					
+					<p:outputLabel value="Orçamento:" style="font-weight:bold"/>
+					<p:inputText value="#{MBSistema.sistema.preco}" size="10"/>
+					
+					<p:outputLabel value="Serviço Executado: " style="font-weight:bold"/>
+					<p:inputTextarea value="#{MBSistema.sistema.servicoex}" rows="6" cols="33" 
+					/>
+					
+					<p:outputLabel value="Status:" style="font-weight:bold"/>
+        			<p:selectOneMenu id="status" value="#{MBSistema.sistema.status}">
+            			<f:selectItem itemLabel="Pendente" itemValue="true" />
+            			<f:selectItem itemLabel="Finalizado" itemValue="false" />
+        			</p:selectOneMenu>
+					
+				
+				
+				</h:panelGrid>
+									
+				<h:panelGrid columns="2">
+					<p:commandButton value="Editar" actionListener="#{MBSistema.editar}"
+									 update=":msgGlobal :frmSistList:tblSistList"
+									 oncomplete="verificar(xhr, status, args, 'dlgSistEditar', 'tabelaSistList')"/>
+					<p:commandButton value="Cancelar" process="@this" 
+									oncomplete="PF('dlgSistEditar').hide();">
+									
+									<p:resetInput target="pnlSistEditar"/>
+																
+					</p:commandButton>
+				
+				</h:panelGrid>				
+				
+				
+			</h:form>
+		</p:dialog>
+		
+		<p:dialog widgetVar="dlgSistFinal" draggable="false" resizable="false"
+				  header="Serviço - Finalizar" width="450px" height="400px">
+			<h:form id="frmSistFinal">
+				<h:panelGrid columns="2" id="pnlSistFinal" cellpadding="5">
+					<p:outputLabel value="Nº: " style="font-weight:bold"/>
+					<p:inputText value="#{MBSistema.sistema.codigo}" readonly="true" size="3"/>
+									
+					<p:outputLabel value="Cliente:" style="font-weight:bold"/>
+					<p:inputText value="#{MBSistema.sistema.cliente}" readonly="true"/>	
+					
+					<p:outputLabel value="Telefone do Cliente:" style="font-weight:bold"/>
+					<p:inputText value="#{MBSistema.sistema.telefone}" readonly="true" size="15"/>
+						
+					<p:outputLabel value="Endereço:" style="font-weight:bold"/>
+					<p:inputText value="#{MBSistema.sistema.end}" readonly="true"/>					
+					
+					<p:outputLabel value="Equipamento:" style="font-weight:bold"/>
+					<p:inputText value="#{MBSistema.sistema.equip}" readonly="true"/>										
+					
+					<p:outputLabel value="Marca:" style="font-weight:bold"/>
+					<p:inputText value="#{MBSistema.sistema.marca}" readonly="true"/>						
+					
+					<p:outputLabel value="Modelo:" style="font-weight:bold"/>
+					<p:inputText value="#{MBSistema.sistema.modelo}" readonly="true"/>					
+						
+					<p:outputLabel value="Defeito:" style="font-weight:bold"/>
+					<p:inputTextarea value="#{MBSistema.sistema.defeito}" readonly="true" autoResize="true" rows="5" cols="25"/>			
+					
+					<p:outputLabel value="Data de Chegada:" style="font-weight:bold"/>
+					<p:inputText value="#{MBSistema.sistema.datachegada}" readonly="true" size="10" />					
+					
+					<p:outputLabel value="Data de Saída: *" style="font-weight:bold"/>
+					<p:inputMask value="#{MBSistema.sistema.datasaida}" mask="99/99/9999" size="13"
+								required="true" requiredMessage="O campo data de saida é obrigatório."/>
+										
+					<p:outputLabel value="Orçamento: *" style="font-weight:bold"/>
+					<p:inputText value="#{MBSistema.sistema.preco}" size="9" 
+								required="true" requiredMessage="O campo orçamento é obrigatório."/>
+					
+					<p:outputLabel value="Serviço Executado: *" style="font-weight:bold"/>
+					<p:inputTextarea value="#{MBSistema.sistema.servicoex}" rows="6" cols="25"  required="true" 
+					requiredMessage="O campo serviço executado é obrigatório."/>
+					
+					<p:outputLabel value="Status:" style="font-weight:bold"/>
+					<p:inputText value="#{MBSistema.sistema.status ? 'Pendente': 'Finalizado'}" readonly="true" size="10"/>
+					
+					
+				</h:panelGrid>
+				
+									
+				<h:panelGrid columns="2">
+					<p:commandButton value="Finalizar" actionListener="#{MBSistema.finalizar}"
+									 update=":msgGlobal :frmSistList:tblSistList"
+									 oncomplete="verificar(xhr, status, args, 'dlgSistFinal', 'tabelaSistList')"/>
+					<p:commandButton value="Cancelar" process="@this"
+					 				 oncomplete="PF('dlgSistFinal').hide(); PF('tabelaSistList').clearFilters();"/>
+				
+				</h:panelGrid>				
+				</h:form>
+				</p:dialog>
+		
+				<p:dialog widgetVar="dlgSistImpr" draggable="false" resizable="false"
+				  header="Serviço - Visualizar">
+			<h:form id="frmSistImpr">
+				<h:panelGrid  columns="2" id="pnlSistImpr" cellpadding="5" style="width: 100px">
+					<p:outputLabel value="Nº: " style="font-weight:bold"/>
+					<p:inputText value="#{MBSistema.sistema.codigo}" readonly="true" size="2"/>
+									
+					<p:outputLabel value="Status:" style="font-weight:bold"/>
+					<p:inputText value="#{MBSistema.sistema.status ? 'Pendente': 'Finalizado'}" readonly="true" size="10" />
+					
+					
+					
+				</h:panelGrid>
+			<h:panelGrid columns="2">
+					<p:commandButton value="Imprimir" action="#{MBSistema.imprimir}"
+									 update=":msgGlobal :frmSistList:tblSistList"
+									 oncomplete="PF('dlgSistImpr').hide(); PF('tabelaSistList').clearFilters();" ajax="false" onclick="this.form.target='_blank'" />
+					<p:commandButton value="Cancelar" process="@this"
+					 				 oncomplete="PF('dlgSistImpr').hide(); PF('tabelaSistList').clearFilters();"/>
+				
+				</h:panelGrid>			
+		
+		</h:form>
+		</p:dialog>
+		
+		
+		
+		
+	</ui:define>
+</ui:composition>

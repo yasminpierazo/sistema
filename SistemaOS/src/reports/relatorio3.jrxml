@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2017-05-31T22:32:32 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="65c93680-94e6-421d-9db0-418bfdc416fe">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="codigo" class="java.lang.Integer"/>
+	<field name="cliente" class="java.lang.String"/>
+	<field name="end" class="java.lang.String"/>
+	<field name="equip" class="java.lang.String"/>
+	<field name="marca" class="java.lang.String"/>
+	<field name="modelo" class="java.lang.String"/>
+	<field name="defeito" class="java.lang.String"/>
+	<field name="preco" class="java.lang.Double"/>
+	<field name="servicoex" class="java.lang.String"/>
+	<field name="telefone" class="java.lang.String"/>
+	<field name="datachegada" class="java.lang.String"/>
+	<field name="datasaida" class="java.lang.String"/>
+	<title>
+		<band height="81" splitType="Stretch">
+			<staticText>
+				<reportElement x="202" y="30" width="278" height="51" uuid="f80c246e-eff6-4ce6-a877-a40ce2472507"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Arial" size="40" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SP Info]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="40" splitType="Stretch">
+			<staticText>
+				<reportElement x="210" y="0" width="123" height="19" uuid="de671a56-c7a3-490b-a664-e8be25502403"/>
+				<textElement>
+					<font fontName="Arial Black" size="11"/>
+				</textElement>
+				<text><![CDATA[Cel: (34)99780-2627]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="210" y="15" width="123" height="20" uuid="d078f244-d811-45d7-98be-48d3d20f9979"/>
+				<textElement>
+					<font fontName="Arial Black" size="11"/>
+				</textElement>
+				<text><![CDATA[Fone: (34)3268-4446]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="21" splitType="Stretch">
+			<staticText>
+				<reportElement x="220" y="0" width="72" height="20" uuid="d17ce450-890a-4877-b84a-f13ec60eaf36"/>
+				<textElement>
+					<font fontName="SansSerif" size="11"/>
+				</textElement>
+				<text><![CDATA[Nº da OS:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="293" y="0" width="72" height="20" uuid="ecdf264e-d2b8-487e-9fc0-00cbd4cfe74a">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement>
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{codigo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="330" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="4" width="72" height="16" uuid="0e6b0722-02c4-4948-bcd3-0bd3c638fa85"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="11"/>
+				</textElement>
+				<text><![CDATA[Cliente:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="20" width="72" height="18" uuid="4278cd0c-00eb-43af-90ea-fb3de1a35a81"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[Endereço:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="38" width="72" height="20" uuid="ec7eada5-db87-4391-a2ea-d914def690c8"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[Equip. :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="58" width="71" height="20" uuid="3946f8c7-cb2a-439f-bebc-49353884e1aa"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[Marca:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="78" width="72" height="22" uuid="4506f8d7-0037-4c36-9358-c2451856eb7b"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[Modelo:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="100" width="72" height="35" uuid="8251456b-508d-440a-821f-150598635965"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[Defeito:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="135" width="72" height="20" uuid="44861d9c-9f22-48e1-99a9-95f49976c301"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[Orçamento:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="157" y="271" width="262" height="1" uuid="12ae392f-3f48-409f-9aa6-64d6753216c3"/>
+			</line>
+			<staticText>
+				<reportElement x="0" y="170" width="72" height="40" uuid="04dac703-4a7f-4bb2-97f1-952992ff3364"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[Serviço
+Executado:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="210" width="73" height="23" uuid="c2397b41-04de-4dd2-bf6b-49d38c3c05e2"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[Garantia:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="72" y="210" width="100" height="23" uuid="1a291467-2991-4bf2-b53d-470e7b842545"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[90 dias]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="323" y="8" width="47" height="22" uuid="285a7d6f-c29a-418b-beab-fa77150c98d1"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[Tel. :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="323" y="30" width="124" height="21" uuid="b5852477-d0c1-4950-8a9e-389266c17786"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[Data de Chegada:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="323" y="51" width="100" height="14" uuid="b794eb5d-bf4f-4905-8652-e8fc5f9acb6b"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[Data de Saída:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="72" y="4" width="227" height="16" uuid="f4ebc391-6b0d-4446-8801-0ddc4bd3256d">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cliente}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="72" y="20" width="227" height="18" uuid="036bc984-b72e-4690-ab6e-1991c95999ad">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{end}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="72" y="38" width="199" height="20" uuid="6bb3cc5e-5681-4a3d-b92f-ebb8238a797d">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{equip}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="72" y="58" width="199" height="20" uuid="c4db5739-2886-44ba-a27b-888182485b1e">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{marca}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="71" y="78" width="199" height="22" uuid="b3420164-b322-433f-acde-194c91947f90">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{modelo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="73" y="100" width="483" height="35" uuid="7f018e4e-1352-48e8-bf25-615c84328ac2">
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{defeito}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="71" y="135" width="100" height="20" uuid="68b5a3ed-fe56-42f1-8ecf-54d3b200250d">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{preco}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="72" y="170" width="483" height="40" uuid="b642a57d-bbd2-4e1b-aab2-2afadd304eca">
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{servicoex}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="370" y="8" width="100" height="22" uuid="1dfa55cd-20df-47c3-8910-eab4f16e7eef">
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{telefone}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="447" y="30" width="100" height="21" uuid="9164417c-8934-4d61-90e6-38bc0f6c3ad9">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{datachegada}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="423" y="51" width="100" height="14" uuid="7fd73504-6141-456c-b875-27d69f84fa37">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{datasaida}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="163" width="554" height="1" uuid="84bcadf8-3a8f-424f-bbf4-74b5c43d9580"/>
+			</line>
+			<staticText>
+				<reportElement x="59" y="252" width="90" height="19" uuid="484efd7b-c4be-444c-8ef3-e6e08903a0f5"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Ass. do técnico:]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>
